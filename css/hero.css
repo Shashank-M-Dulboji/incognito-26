@@ -1,0 +1,424 @@
+/* =====================================================
+   COMPONENT: Hero Section
+   File: css/hero.css
+   ===================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 64px;
+}
+
+/* === BACKGROUND LAYERS === */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__bg-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+/* Radial spotlight from top-left */
+.hero__bg-layer--1 {
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 30%, rgba(139,0,0,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 70%, rgba(212,175,55,0.05) 0%, transparent 60%);
+}
+
+/* Grid overlay */
+.hero__bg-layer--2 {
+  background-image:
+    linear-gradient(rgba(192,57,43,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(192,57,43,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Vignette */
+.hero__bg-layer--3 {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%);
+}
+
+/* Spotlight sweep */
+.hero__spotlight {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 70%;
+  height: 150%;
+  background: conic-gradient(from 200deg at 50% 0%, transparent 0deg, rgba(212,175,55,0.03) 20deg, transparent 40deg);
+  animation: spotlightSweep 12s ease-in-out infinite alternate;
+  transform-origin: top left;
+}
+
+@keyframes spotlightSweep {
+  from { transform: rotate(-10deg); opacity: 0.5; }
+  to   { transform: rotate(20deg);  opacity: 1; }
+}
+
+/* Evidence tape stripes */
+.hero__tape {
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 140%;
+  left: -20%;
+}
+
+.hero__tape--1 {
+  top: 18%;
+  transform: rotate(-3deg);
+  opacity: 0.7;
+}
+
+.hero__tape--2 {
+  top: 72%;
+  transform: rotate(2deg);
+  opacity: 0.5;
+}
+
+.hero__tape .evidence-tape {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 5px 0;
+  width: 200%;
+  animation: marquee 20s linear infinite;
+}
+
+/* Glitch overlay */
+.hero__glitch-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero__glitch-overlay span {
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 22vw, 22rem);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(192,57,43,0.06);
+  letter-spacing: -0.02em;
+  user-select: none;
+  position: relative;
+}
+
+.hero__glitch-overlay span::before,
+.hero__glitch-overlay span::after {
+  content: 'INCOGNITO';
+  position: absolute;
+  inset: 0;
+  color: transparent;
+}
+
+.hero__glitch-overlay span::before {
+  -webkit-text-stroke: 1px rgba(255,34,34,0.07);
+  animation: glitch 6s infinite;
+}
+
+.hero__glitch-overlay span::after {
+  -webkit-text-stroke: 1px rgba(0,255,65,0.04);
+  animation: glitch 6s infinite 0.5s;
+}
+
+/* === CONTENT === */
+.hero__content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Badge */
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  animation: fadeInUp 0.8s ease both;
+}
+
+.hero__badge-line {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  opacity: 0.7;
+}
+
+/* Title */
+.hero__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  animation: fadeInUp 0.8s ease 0.15s both;
+  line-height: 1;
+}
+
+.hero__title-main {
+  font-size: clamp(4rem, 14vw, 11rem);
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  color: var(--typewriter);
+  position: relative;
+  animation: flicker 10s infinite;
+}
+
+.hero__title-year {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  color: var(--gold);
+  letter-spacing: 0.4em;
+  margin-top: -8px;
+  text-shadow: 0 0 20px rgba(212,175,55,0.4);
+}
+
+/* Tagline */
+.hero__tagline-wrap {
+  min-height: 28px;
+  animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+.hero__tagline {
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: var(--aged-paper);
+}
+
+.hero__cursor {
+  animation: blink 0.8s step-end infinite;
+  font-size: 0.9rem;
+}
+
+/* Meta row */
+.hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.hero__meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.hero__meta-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--crime-red);
+  opacity: 0.8;
+}
+
+.hero__meta-value {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--typewriter);
+}
+
+.hero__meta-divider {
+  color: var(--ash);
+  font-size: 1.2rem;
+}
+
+/* Countdown */
+.hero__countdown {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  animation: fadeInUp 0.8s ease 0.5s both;
+  background: rgba(15, 14, 11, 0.7);
+  border: 1px solid var(--ash);
+  padding: 20px 32px;
+  position: relative;
+}
+
+.hero__countdown::before {
+  content: 'OPERATION COUNTDOWN';
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: var(--black);
+  padding: 0 8px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--crime-red);
+}
+
+.hero__countdown::after {
+  content: 'T-MINUS';
+  position: absolute;
+  top: -10px;
+  right: 16px;
+  background: var(--black);
+  padding: 0 8px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 60px;
+}
+
+.countdown-value {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--typewriter);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(240, 230, 204, 0.3);
+  transition: transform 0.1s;
+}
+
+.countdown-value.tick {
+  transform: scale(1.08);
+  color: var(--crime-red);
+}
+
+.countdown-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--aged-paper);
+  opacity: 0.6;
+}
+
+.countdown-sep {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1;
+  margin-top: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+/* Actions */
+.hero__actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+.hero__btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--crime-red);
+  color: var(--black);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  padding: 14px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s, transform 0.1s;
+  animation: pulse-red 2s infinite;
+}
+
+.hero__btn-primary:hover {
+  background: var(--blood-red);
+  transform: translateY(-2px);
+}
+
+.hero__btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--typewriter);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  padding: 14px 32px;
+  border: 1px solid var(--ash);
+  transition: border-color 0.2s, color 0.2s, transform 0.1s;
+}
+
+.hero__btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* Orgs */
+.hero__orgs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeInUp 0.8s ease 0.7s both;
+}
+
+.hero__org-item {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--aged-paper);
+  opacity: 0.65;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero__org-sep {
+  color: var(--ash);
+  font-size: 1rem;
+}
+
+/* Scroll cue */
+.hero__scroll-cue {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInUp 1s ease 1.2s both;
+}
+
+.hero__scroll-cue span {
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  opacity: 0.5;
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, var(--crime-red) 0%, transparent 100%);
+  animation: float 2s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero__meta-divider { display: none; }
+  .hero__meta { gap: 16px; }
+  .hero__countdown { padding: 16px 20px; gap: 8px; }
+  .countdown-unit { min-width: 48px; }
+  .hero__tape--2 { display: none; }
+}

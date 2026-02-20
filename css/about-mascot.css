@@ -1,0 +1,420 @@
+/* =====================================================
+   COMPONENT: About & Mascot Chatbot
+   File: css/about-mascot.css
+   ===================================================== */
+
+/* === ABOUT === */
+.about {
+  background: var(--black);
+  position: relative;
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* Dossier */
+.about__dossier {
+  background: var(--paper);
+  padding: 32px;
+  position: relative;
+  box-shadow:
+    4px 4px 0 var(--smoke),
+    8px 8px 0 rgba(0,0,0,0.3);
+  transform: rotate(-1deg);
+  transition: transform 0.3s;
+}
+
+.about__dossier:hover {
+  transform: rotate(0deg) scale(1.01);
+}
+
+.dossier-stamp {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  color: var(--crime-red);
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  border: 3px solid var(--crime-red);
+  padding: 4px 12px;
+  transform: rotate(12deg);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.dossier-header {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--aged-paper);
+}
+
+.dossier-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dossier-row {
+  display: flex;
+  gap: 12px;
+}
+
+.dossier-key {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--ash);
+  min-width: 80px;
+  padding-top: 1px;
+}
+
+.dossier-val {
+  font-size: 0.78rem;
+  color: var(--black);
+  line-height: 1.3;
+}
+
+.dossier-signature {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--aged-paper);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dossier-sig-line {
+  height: 1px;
+  background: var(--ash);
+  opacity: 0.5;
+}
+
+/* About text */
+.about__text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: slideInLeft 0.8s ease both;
+}
+
+.about__para {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: var(--aged-paper);
+  opacity: 0.85;
+}
+
+/* Stats */
+.about__stats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  padding: 24px;
+  background: var(--smoke);
+  border: 1px solid var(--ash);
+  border-left: 3px solid var(--crime-red);
+}
+
+.about__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.about__stat-num {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.about__stat-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--aged-paper);
+  opacity: 0.5;
+}
+
+@media (max-width: 900px) {
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .about__dossier {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}
+
+/* ========================
+   MASCOT CHATBOT
+   ======================== */
+
+/* Toggle button */
+.mascot-toggle {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 64px;
+  height: 64px;
+  background: var(--smoke);
+  border: 2px solid var(--crime-red);
+  cursor: crosshair;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: float 4s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(192,57,43,0.3);
+}
+
+.mascot-toggle:hover {
+  transform: scale(1.08) translateY(0);
+  box-shadow: 0 0 40px rgba(192,57,43,0.5);
+}
+
+/* Robot */
+.mascot-robot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.robot-head {
+  width: 28px;
+  height: 20px;
+  background: var(--aged-paper);
+  border: 1px solid var(--ash);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.robot-head.mini {
+  width: 24px;
+  height: 17px;
+  gap: 4px;
+}
+
+.robot-antenna {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 6px;
+  background: var(--crime-red);
+}
+
+.robot-antenna::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  background: var(--crime-red);
+  border-radius: 50%;
+  animation: blink 1.5s step-end infinite;
+}
+
+.robot-eye {
+  width: 6px;
+  height: 6px;
+  background: var(--neon-green);
+  border-radius: 1px;
+  box-shadow: 0 0 8px var(--neon-green);
+  animation: blink 3s ease-in-out infinite;
+}
+
+.robot-eye--right { animation-delay: 0.15s; }
+
+.robot-body {
+  width: 22px;
+  height: 12px;
+  background: var(--ash);
+  border: 1px solid var(--smoke);
+}
+
+.mascot-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  background: var(--crime-red);
+  color: var(--black);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+/* Chat Panel */
+.mascot-panel {
+  position: fixed;
+  bottom: 104px;
+  right: 28px;
+  width: 320px;
+  background: var(--deep-noir);
+  border: 1px solid var(--ash);
+  border-top: 3px solid var(--crime-red);
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  transform: scale(0.9) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s, opacity 0.25s;
+  transform-origin: bottom right;
+}
+
+.mascot-panel.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mascot-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--ash);
+  background: var(--smoke);
+}
+
+.mascot-panel__avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--black);
+  border: 1px solid var(--ash);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mascot-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--aged-paper);
+  font-size: 0.85rem;
+  cursor: crosshair;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  padding: 4px 8px;
+}
+
+.mascot-close:hover { opacity: 1; color: var(--crime-red); }
+
+.mascot-panel__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 300px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ash) transparent;
+}
+
+.chat-bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+  animation: fadeInUp 0.3s ease both;
+}
+
+.chat-bubble--bot {
+  background: var(--smoke);
+  border: 1px solid var(--ash);
+  border-left: 2px solid var(--crime-red);
+  align-self: flex-start;
+  color: var(--typewriter);
+}
+
+.chat-bubble--user {
+  background: rgba(192,57,43,0.15);
+  border: 1px solid rgba(192,57,43,0.3);
+  align-self: flex-end;
+  color: var(--typewriter);
+}
+
+/* Quick prompts */
+.chat-quickies {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.quickie-btn {
+  background: var(--black);
+  border: 1px solid var(--ash);
+  color: var(--aged-paper);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  padding: 8px 12px;
+  text-align: left;
+  cursor: crosshair;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.quickie-btn:hover {
+  border-color: var(--crime-red);
+  color: var(--typewriter);
+}
+
+/* Input */
+.mascot-panel__input {
+  display: flex;
+  border-top: 1px solid var(--ash);
+}
+
+#chat-input {
+  flex: 1;
+  background: var(--black);
+  border: none;
+  color: var(--typewriter);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: 12px 16px;
+  outline: none;
+}
+
+#chat-input::placeholder { color: var(--ash); }
+
+#chat-send {
+  background: var(--crime-red);
+  border: none;
+  color: var(--black);
+  padding: 12px 16px;
+  cursor: crosshair;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#chat-send:hover { background: var(--blood-red); }
+
+@media (max-width: 400px) {
+  .mascot-panel { width: calc(100vw - 32px); right: 16px; }
+  .mascot-toggle { bottom: 16px; right: 16px; }
+}

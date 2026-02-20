@@ -1,0 +1,221 @@
+/* =====================================================
+   INCOGNITO 2026 — Crime Scene Noir Retro Theme
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=VT323&family=Bebas+Neue&display=swap');
+
+:root {
+  /* Core Palette */
+  --black:       #0a0a08;
+  --deep-noir:   #0f0e0b;
+  --paper:       #e8dfc8;
+  --aged-paper:  #c9b99a;
+  --crime-red:   #c0392b;
+  --blood-red:   #8b0000;
+  --warning-red: #ff2222;
+  --gold:        #d4af37;
+  --dim-gold:    #8a6f1e;
+  --typewriter:  #f0e6cc;
+  --smoke:       #2a2820;
+  --ash:         #3d3b35;
+  --chalk:       #e8e4d9;
+  --neon-green:  #00ff41;
+  --dim-green:   #003b0f;
+  --tape-yellow: #ffd700;
+
+  /* Fonts */
+  --font-display:    'Bebas Neue', sans-serif;
+  --font-typewriter: 'Special Elite', cursive;
+  --font-mono:       'Courier Prime', monospace;
+  --font-retro:      'VT323', monospace;
+
+  /* Grain Overlay */
+  --grain-opacity: 0.06;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--black);
+  color: var(--typewriter);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* Grain texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: var(--grain-opacity);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+}
+
+/* Scanline effect */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* === UTILITIES === */
+.text-red    { color: var(--crime-red); }
+.text-gold   { color: var(--gold); }
+.text-chalk  { color: var(--chalk); }
+.text-green  { color: var(--neon-green); }
+.text-paper  { color: var(--paper); }
+
+.font-display    { font-family: var(--font-display); }
+.font-typewriter { font-family: var(--font-typewriter); }
+.font-retro      { font-family: var(--font-retro); }
+.font-mono       { font-family: var(--font-mono); }
+
+/* Redaction stamp effect */
+.redacted {
+  background: var(--black);
+  color: transparent;
+  user-select: none;
+  position: relative;
+  display: inline-block;
+}
+
+/* Evidence tape */
+.evidence-tape {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--tape-yellow),
+    var(--tape-yellow) 10px,
+    #333 10px,
+    #333 20px
+  );
+  color: var(--black);
+  font-family: var(--font-typewriter);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 4px 20px;
+  font-size: 0.75rem;
+}
+
+/* Glow text */
+.glow-red {
+  text-shadow:
+    0 0 10px var(--crime-red),
+    0 0 30px var(--crime-red),
+    0 0 60px var(--blood-red);
+}
+
+.glow-gold {
+  text-shadow:
+    0 0 8px var(--gold),
+    0 0 20px var(--dim-gold);
+}
+
+/* Flicker animation */
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: 0.4; }
+  97% { opacity: 1; }
+  98% { opacity: 0.2; }
+  99% { opacity: 0.9; }
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes glitch {
+  0%   { clip-path: inset(0 0 98% 0); transform: translate(-4px, 0); }
+  10%  { clip-path: inset(40% 0 50% 0); transform: translate(4px, 0); }
+  20%  { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 0); }
+  30%  { clip-path: inset(10% 0 85% 0); transform: translate(3px, 0); }
+  40%  { clip-path: inset(60% 0 30% 0); transform: translate(-3px, 0); }
+  50%  { clip-path: inset(0% 0 96% 0); transform: translate(0); }
+  100% { clip-path: inset(0 0 98% 0); transform: translate(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.4); }
+  50%       { box-shadow: 0 0 0 15px rgba(192,57,43,0); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes crtOn {
+  0%   { transform: scaleY(0.005) scaleX(1); filter: brightness(30); }
+  35%  { transform: scaleY(0.005) scaleX(1); filter: brightness(30); }
+  50%  { transform: scaleY(1) scaleX(1); filter: brightness(5); }
+  100% { transform: scaleY(1) scaleX(1); filter: brightness(1); }
+}
+
+/* CRT intro */
+.crt-intro {
+  animation: crtOn 1.2s ease-out forwards;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--crime-red); border-radius: 0; }
+
+/* Section spacing */
+section { padding: 80px 0; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Divider */
+.divider-crime {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 40px 0;
+}
+.divider-crime::before,
+.divider-crime::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--crime-red), transparent);
+}
