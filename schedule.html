@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>INCOGNITO 2026 — Schedule</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=VT323&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --noir:   #080806;
+  --smoke:  #0f0e0b;
+  --ash:    #181612;
+  --dim:    #26231c;
+  --dimmer: #343028;
+  --aged:   #6b6050;
+  --paper:  #c9b99a;
+  --cream:  #f0e6cc;
+  --parchment: #e8d8b4;
+  --red:    #c0392b;
+  --blood:  #8b0000;
+  --gold:   #d4af37;
+  --gold-d: #9a7e1e;
+  --green:  #00ff41;
+  --tape:   #ffd700;
+  --fd: 'Bebas Neue', sans-serif;
+  --fr: 'VT323', monospace;
+  --fm: 'Courier Prime', monospace;
+  --ft: 'Special Elite', cursive;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--noir);
+  color: var(--cream);
+  font-family: var(--fm);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ── grain overlay ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .05; pointer-events: none; z-index: 9000; mix-blend-mode: overlay;
+}
+/* ── scanlines ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.06) 2px, rgba(0,0,0,.06) 4px);
+  pointer-events: none; z-index: 8999;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--noir); }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+/* ══════════════════════════════
+   TAPE STRIPS (top & bottom)
+══════════════════════════════ */
+.tape-strip {
+  position: fixed; left: -10%; width: 120%;
+  white-space: nowrap; overflow: hidden;
+  pointer-events: none; z-index: 100;
+}
+.tape-strip--top { top: 0; transform: rotate(0deg); }
+.tape-strip--bot { bottom: 0; transform: rotate(0deg); }
+.tape-inner {
+  display: inline-block; width: 200%;
+  padding: 5px 0;
+  background: repeating-linear-gradient(-45deg, var(--tape), var(--tape) 9px, #181410 9px, #181410 18px);
+  color: var(--noir); font-family: var(--ft); font-weight: 700;
+  font-size: .58rem; letter-spacing: .18em;
+  animation: marquee 30s linear infinite;
+}
+.tape-strip--bot .tape-inner { animation-direction: reverse; }
+@keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+/* ══════════════════════════════
+   HEADER
+══════════════════════════════ */
+.site-header {
+  position: relative;
+  padding: 70px 0 32px;
+  text-align: center;
+  border-bottom: 1px solid var(--dim);
+  overflow: hidden;
+}
+
+.site-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(192,57,43,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.header-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(192,57,43,.1); border: 1px solid rgba(192,57,43,.28);
+  padding: 3px 14px; font-size: .52rem; letter-spacing: .22em; color: var(--red);
+  margin-bottom: 14px;
+}
+.header-badge::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--red); animation: blink 1s step-end infinite;
+}
+
+.header-title {
+  font-family: var(--fd);
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  letter-spacing: .04em; line-height: .9;
+  color: var(--cream); animation: flicker 12s infinite;
+}
+.header-title .r { color: var(--red); }
+
+.header-sub {
+  font-family: var(--fr); font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+  color: var(--gold); letter-spacing: .3em; margin-top: 6px;
+}
+
+.header-meta {
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+  margin-top: 16px; flex-wrap: wrap;
+}
+.header-meta-item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: .6rem; letter-spacing: .16em; color: var(--aged);
+}
+.header-meta-item strong { color: var(--paper); }
+
+.meta-sep { width: 1px; height: 16px; background: var(--dim); }
+
+/* ══════════════════════════════
+   MAIN LAYOUT
+══════════════════════════════ */
+.main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* ══════════════════════════════
+   DOSSIER LABEL
+══════════════════════════════ */
+.dossier-label {
+  display: flex; align-items: center; gap: 12px;
+  font-size: .52rem; letter-spacing: .22em; color: var(--aged);
+  margin-bottom: 28px;
+}
+.dossier-label::before { content: '// '; color: var(--red); }
+.dossier-label::after {
+  content: ''; flex: 1;
+  height: 1px; background: linear-gradient(90deg, var(--dim), transparent);
+}
+
+/* ══════════════════════════════
+   LIVE CLOCK BANNER
+══════════════════════════════ */
+.live-banner {
+  background: var(--smoke);
+  border: 1px solid var(--dim);
+  border-left: 3px solid var(--green);
+  padding: 12px 20px;
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 32px;
+  animation: fade-in .6s ease both;
+}
+.live-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 10px var(--green);
+  animation: pulse-g 1.5s ease-in-out infinite; flex-shrink: 0;
+}
+.live-text { flex: 1; font-size: .68rem; letter-spacing: .06em; color: var(--paper); }
+.live-text strong { color: var(--green); }
+.live-clock { font-family: var(--fr); font-size: 1.5rem; color: var(--gold); letter-spacing: .06em; }
+.live-date  { font-size: .52rem; letter-spacing: .14em; color: var(--aged); }
+
+/* ══════════════════════════════
+   TIMELINE
+══════════════════════════════ */
+.timeline {
+  position: relative;
+  display: flex; flex-direction: column; gap: 0;
+}
+
+/* vertical line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 110px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--dim) 5%, var(--dim) 95%, transparent);
+}
+
+/* ── TIMELINE ITEM ── */
+.ti {
+  display: flex;
+  gap: 0;
+  position: relative;
+  animation: fade-up .5s ease both;
+}
+
+/* stagger delays */
+.ti:nth-child(1)  { animation-delay: .05s }
+.ti:nth-child(2)  { animation-delay: .10s }
+.ti:nth-child(3)  { animation-delay: .15s }
+.ti:nth-child(4)  { animation-delay: .20s }
+.ti:nth-child(5)  { animation-delay: .25s }
+.ti:nth-child(6)  { animation-delay: .30s }
+.ti:nth-child(7)  { animation-delay: .35s }
+.ti:nth-child(8)  { animation-delay: .40s }
+.ti:nth-child(9)  { animation-delay: .45s }
+
+/* Time column */
+.ti-time {
+  width: 110px; flex-shrink: 0;
+  padding: 22px 16px 22px 0;
+  text-align: right;
+  position: relative;
+}
+
+.ti-time-main {
+  font-family: var(--fr);
+  font-size: 1.55rem; line-height: 1;
+  color: var(--gold); letter-spacing: .04em;
+}
+
+.ti-time-end {
+  font-family: var(--fr);
+  font-size: .95rem; color: var(--aged);
+  letter-spacing: .04em; display: block; margin-top: 1px;
+}
+
+/* Node on the line */
+.ti-node {
+  width: 0; flex-shrink: 0; position: relative;
+}
+.ti-node::before {
+  content: '';
+  position: absolute;
+  top: 26px; left: -5px;
+  width: 10px; height: 10px;
+  border-radius: 0; /* square node, noir style */
+  background: var(--dim);
+  border: 1.5px solid var(--aged);
+  transition: background .2s, border-color .2s;
+  z-index: 1;
+}
+
+.ti:hover .ti-node::before {
+  background: var(--red);
+  border-color: var(--red);
+  box-shadow: 0 0 8px rgba(192,57,43,.5);
+}
+
+/* Special nodes */
+.ti.ti-break  .ti-node::before { background: var(--ash); border-color: var(--dimmer); }
+.ti.ti-anchor .ti-node::before { background: var(--gold); border-color: var(--gold); width: 14px; height: 14px; top: 23px; left: -7px; }
+.ti.ti-active .ti-node::before { background: var(--green); border-color: var(--green); box-shadow: 0 0 12px var(--green); animation: pulse-g 1.5s infinite; }
+
+/* Content card */
+.ti-card {
+  flex: 1;
+  margin: 10px 0 10px 28px;
+  background: var(--smoke);
+  border: 1px solid var(--dim);
+  border-left: 3px solid var(--dimmer);
+  padding: 16px 20px;
+  position: relative;
+  transition: border-color .2s, background .2s;
+  overflow: hidden;
+}
+
+.ti:hover .ti-card { border-color: var(--dimmer); border-left-color: var(--red); background: var(--ash); }
+.ti.ti-anchor .ti-card { border-left-color: var(--gold); }
+.ti.ti-break  .ti-card { border-left-color: var(--dim); opacity: .7; }
+.ti.ti-active .ti-card { border-left-color: var(--green); background: rgba(0,255,65,.03); }
+
+/* card inner bg pattern */
+.ti-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(135deg, transparent, transparent 18px, rgba(255,255,255,.012) 18px, rgba(255,255,255,.012) 19px);
+  pointer-events: none;
+}
+
+.ti-card-type {
+  font-size: .48rem; letter-spacing: .22em; color: var(--aged);
+  margin-bottom: 5px; display: flex; align-items: center; gap: 6px;
+}
+.ti-type-dot {
+  width: 5px; height: 5px;
+  display: inline-block; flex-shrink: 0;
+}
+
+.ti-card-title {
+  font-family: var(--fd); font-size: 1.55rem;
+  letter-spacing: .06em; color: var(--cream); line-height: 1;
+  margin-bottom: 6px;
+}
+.ti.ti-break  .ti-card-title { color: var(--aged); font-size: 1.2rem; }
+.ti.ti-anchor .ti-card-title { color: var(--gold); }
+
+.ti-card-desc {
+  font-size: .68rem; line-height: 1.55; color: var(--paper);
+  letter-spacing: .03em;
+}
+
+/* event pills for multi-event slots */
+.event-pills {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+}
+.ep {
+  background: var(--ash); border: 1px solid var(--dimmer);
+  padding: 4px 10px; font-size: .6rem; letter-spacing: .08em;
+  color: var(--paper); display: flex; align-items: center; gap: 6px;
+  transition: border-color .2s, color .2s;
+}
+.ep:hover { border-color: var(--red); color: var(--cream); }
+.ep-dot { width: 5px; height: 5px; flex-shrink: 0; }
+
+/* duration badge */
+.ti-dur {
+  position: absolute; top: 12px; right: 14px;
+  font-family: var(--fr); font-size: .85rem;
+  color: var(--dimmer); letter-spacing: .06em;
+}
+.ti.ti-active .ti-dur { color: var(--green); }
+
+/* NOW indicator */
+.now-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(0,255,65,.1); border: 1px solid rgba(0,255,65,.3);
+  padding: 2px 8px; font-size: .5rem; letter-spacing: .14em; color: var(--green);
+  margin-bottom: 6px;
+}
+.now-pill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink .6s step-end infinite; }
+
+/* ══════════════════════════════
+   TOTAL SUMMARY ROW
+══════════════════════════════ */
+.summary {
+  margin-top: 36px;
+  background: var(--smoke);
+  border: 1px solid var(--dim);
+  border-top: 3px solid var(--gold);
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background-color: var(--dim);
+  animation: fade-up .5s ease .5s both;
+}
+.sum-cell {
+  background: var(--smoke);
+  padding: 14px 10px; text-align: center;
+}
+.sum-val { font-family: var(--fr); font-size: 2rem; color: var(--gold); line-height: 1; }
+.sum-lbl { font-size: .48rem; letter-spacing: .18em; color: var(--aged); margin-top: 3px; }
+
+/* ══════════════════════════════
+   VENUE MAP ROW
+══════════════════════════════ */
+.venue-note {
+  margin-top: 16px;
+  background: var(--smoke);
+  border: 1px solid var(--dim);
+  border-left: 3px solid var(--red);
+  padding: 14px 18px;
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: .68rem; line-height: 1.55; color: var(--paper);
+  animation: fade-up .5s ease .55s both;
+}
+.venue-icon { font-family: var(--fr); font-size: 1.4rem; color: var(--red); flex-shrink: 0; }
+
+/* ══════════════════════════════
+   NAV BACK LINK
+══════════════════════════════ */
+.nav-bar {
+  position: fixed; top: 30px; right: 20px; z-index: 200;
+  display: flex; gap: 8px;
+}
+.nav-link {
+  font-family: var(--fm); font-size: .58rem; letter-spacing: .14em;
+  color: var(--aged); background: var(--smoke);
+  border: 1px solid var(--dim); padding: 6px 14px;
+  text-decoration: none; cursor: crosshair;
+  transition: all .2s;
+}
+.nav-link:hover { border-color: var(--red); color: var(--cream); }
+
+/* ══════════════════════════════
+   PRINT BUTTON
+══════════════════════════════ */
+.print-btn {
+  font-family: var(--fm); font-size: .58rem; letter-spacing: .14em;
+  color: var(--aged); background: var(--smoke);
+  border: 1px solid var(--dim); padding: 6px 14px;
+  cursor: crosshair; transition: all .2s;
+}
+.print-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ══════════════════════════════
+   CURRENT EVENT HIGHLIGHT
+══════════════════════════════ */
+.ti.ti-active .ti-card-title { color: var(--green); }
+
+/* ══════════════════════════════
+   ANIMATIONS
+══════════════════════════════ */
+@keyframes blink    { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+@keyframes flicker  { 0%,93%,100%{opacity:1} 94%{opacity:.3} 95%{opacity:1} 97%{opacity:.12} 98%{opacity:1} }
+@keyframes pulse-g  { 0%,100%{box-shadow:0 0 4px var(--green)} 50%{box-shadow:0 0 14px var(--green)} }
+@keyframes fade-in  { from{opacity:0} to{opacity:1} }
+@keyframes fade-up  { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media(max-width:600px){
+  .timeline::before { left: 80px; }
+  .ti-time { width: 80px; }
+  .ti-time-main { font-size: 1.2rem; }
+  .ti-card { margin-left: 20px; padding: 12px 14px; }
+  .ti-card-title { font-size: 1.2rem; }
+  .summary { grid-template-columns: repeat(2,1fr); }
+  .nav-bar { top: 34px; }
+  .live-banner { flex-wrap: wrap; gap: 8px; }
+}
+
+/* ══ PRINT ══ */
+@media print {
+  body { background: white; color: black; }
+  body::before, body::after { display: none; }
+  .tape-strip, .nav-bar, .print-btn, .live-banner { display: none; }
+  .ti-card { border: 1px solid #ccc; background: white; }
+}
+</style>
+</head>
+<body>
+
+<!-- TAPE STRIPS -->
+<div class="tape-strip tape-strip--top">
+  <div class="tape-inner">DO NOT CROSS &nbsp;·&nbsp; INCOGNITO 2026 &nbsp;·&nbsp; MARCH 24 &nbsp;·&nbsp; SESHADRIPURAM COLLEGE &nbsp;·&nbsp; DO NOT CROSS &nbsp;·&nbsp; INCOGNITO 2026 &nbsp;·&nbsp; MARCH 24 &nbsp;·&nbsp; SESHADRIPURAM COLLEGE &nbsp;·&nbsp;</div>
+</div>
+<div class="tape-strip tape-strip--bot">
+  <div class="tape-inner">SCHEDULE CLASSIFIED &nbsp;·&nbsp; CHATHURYA DEV CLUB &nbsp;·&nbsp; OPERATION INCOGNITO &nbsp;·&nbsp; SCHEDULE CLASSIFIED &nbsp;·&nbsp; CHATHURYA DEV CLUB &nbsp;·&nbsp; OPERATION INCOGNITO &nbsp;·&nbsp;</div>
+</div>
+
+<!-- NAV -->
+<div class="nav-bar">
+  <a href="incognito2026.html" class="nav-link">← HOME</a>
+  <button class="print-btn" onclick="window.print()">⎙ PRINT</button>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-badge">OPERATION SCHEDULE — MARCH 24, 2026</div>
+  <div class="header-title"><span class="r">INC</span>OGNITO</div>
+  <div class="header-sub">2026 · CASE ITINERARY</div>
+  <div class="header-meta">
+    <div class="header-meta-item"><strong>VENUE</strong> Seshadripuram College</div>
+    <div class="meta-sep"></div>
+    <div class="header-meta-item"><strong>DATE</strong> Monday, March 24 2026</div>
+    <div class="meta-sep"></div>
+    <div class="header-meta-item"><strong>DURATION</strong> 8:00 AM — 6:00 PM</div>
+    <div class="meta-sep"></div>
+    <div class="header-meta-item"><strong>EVENTS</strong> 7 Operations</div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="dossier-label">CLASSIFIED ITINERARY — DAY OF OPERATIONS</div>
+
+  <!-- LIVE CLOCK -->
+  <div class="live-banner">
+    <div class="live-dot"></div>
+    <div class="live-text">LIVE STATUS — <strong id="live-status">Checking…</strong></div>
+    <div>
+      <div class="live-clock" id="live-clock">--:--:--</div>
+      <div class="live-date" id="live-date">--- -- ----</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline" id="timeline">
+
+    <!-- 8:00 – Registration -->
+    <div class="ti ti-anchor" data-start="8:00" data-end="11:00" id="slot-0">
+      <div class="ti-time">
+        <div class="ti-time-main">8:00</div>
+        <span class="ti-time-end">— 11:00</span>
+      </div>
+      <div class="ti-node"></div>
+      <div class="ti-card">
+        <div class="ti-dur">3 HRS</div>
+        <div class="ti-card-type">
+          <span class="ti-type-dot" style="background:var(--gold)"></span>
+          ANCHOR EVENT
+        </div>
+        <div class="ti-card-title">REGISTRATION</div>
+        <div class="ti-card-desc">
+          All participants report to the registration desk. Collect your wristband, event token, and participant kit. Cash payment to be made here if not pre-registered. Volunteers stationed at entry gates.
+        </div>
+      </div>
+    </div>
+
+    <!-- 9:00 – Inauguration -->
+    <div class="ti ti-anchor" data-start="9:00" data-end="10:30" id="slot-1">
+      <div class="ti-time">
+        <div class="ti-time-main">9:00</div>
+        <span class="ti-time-end">— 10:30</span>
+      </div>
+      <div class="ti-node"></div>
+      <div class="ti-card">
+        <div class="ti-dur">1.5 HRS</div>
+        <div class="ti-card-type">
+          <span class="ti-type-dot" style="background:var(--gold)"></span>
+          CEREMONY
+        </div>
+        <div class="ti-card-title">INAUGURATION</div>
+        <div class="ti-card-desc">
+          Official opening ceremony. Welcome address, chief guest introduction, lamp lighting, and the formal declaration of Incognito 2026. All participants and faculty expected to attend.
+        </div>
+      </div>
+    </div>
+
+    <!-- 10:45 – Technical + Gaming + Videography -->
+    <div class="ti" data-start="10:45" data-end="11:30" id="slot-2">
+      <div class="ti-time">
+        <div class="ti-time-main">10:45</div>
+        <span class="ti-time-end">— 11:30</span>
+      </div>
+      <div class="ti-node"></div>
+      <div class="ti-card">
+        <div class="ti-dur">45 MIN</div>
+        <div class="ti-card-type">
+          <span class="ti-type-dot" style="background:var(--red)"></span>
+          SIMULTANEOUS OPERATIONS
+        </div>
+        <div class="ti-card-title">ROUND 1 — OPERATIONS BEGIN</div>
+        <div class="ti-card-desc">
+          Three operations launch simultaneously. Report to your assigned venue. Event coordinators will brief participants before rounds begin.
+        </div>
+        <div class="event-pills">
+          <div class="ep"><span class="ep-dot" style="background:var(--red)"></span>Coding &amp; Debugging</div>
+          <div class="ep"><span class="ep-dot" style="background:var(--gold)"></span>Gaming (BGMI &amp; Free Fire)</div>
+          <div class="ep"><span class="ep-dot" style="background:var(--paper)"></span>Videography</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11:30 – Data Treasure Hunt -->
+    <div class="ti" data-start="11:30" data-end="12:30" id="slot-3">
+      <div class="ti-time">
+        <div class="ti-time-main">11:30</div>
+        <span class="ti-time-end">— 12:30</span>
+      </div>
+      <div class="ti-node"></div>
+      <div class="ti-card">
+        <div class="ti-dur">1 HR</div>
+        <div class="ti-card-type">
+          <span class="ti-type-dot" style="background:var(--red)"></span>
+          TECHNICAL · MYSTERY
+        </div>
+        <div class="ti-card-title">DATA TREASURE HUNT</div>
+        <div class="ti-card-desc">
+          Teams race across campus to decode clues, crack datasets, and unlock the next location. A multi-stage puzzle combining data analysis with physical navigation. Your wits are your only weapon.
+        </div>
+        <div class="event-pills">
+          <div class="ep"><span class="ep-dot" style="background:var(--red)"></span>Data Treasure Hunt</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12:30 – Flashmob -->
+    <div class="ti" data-start="12:30" data-end="13:30" id="slot-4">
+      <div class="ti-time">
+        <div class="ti-time-main">12:30</div>
+        <span class="ti-time-end">— 1:30</span>
+      </div>
+      <div class="ti-node"></div>
+      <div class="ti-card">
+        <div class="ti-dur">1 HR</div>
+        <div class="ti-card-type">
+          <span class="ti-type-dot" style="background:var(--paper)"></span>
+          CULTURAL · SURPRISE
+        </div>
+        <div class="ti-card-title">FLASHMOB</div>
+        <div class="ti-card-desc">
+          The campus comes alive. A choreographed surprise performance in the open grounds. All attendees gather at the main courtyard. Participants and public are both welcome to join in.
+        </div>
+      </div>
+    </div>
+
+    <!-- 1:30 – Lunch -->
+    <div class="ti ti-break" data-start="13:30" data-end="14:30" id="slot-5">
+      <div class="ti-time">
+        <div class="ti-time-main">1:30</div>
+        <span class="ti-time-end">— 2:30</span>
+      </div>
+      <div class="ti-node"></div>
+      <div class="ti-card">
+        <div class="ti-dur">1 HR</div>
+        <div class="ti-card-type">
+          <span class="ti-type-dot" style="background:var(--dimmer)"></span>
+          BREAK
+        </div>
+        <div class="ti-card-title">LUNCH</div>
+        <div class="ti-card-desc">
+          Meal break. Cafeteria open on Ground Floor. Participants are advised to return to their event venues 10 minutes before the 2:30 PM slot.
+        </div>
+      </div>
+    </div>
+
+    <!-- 2:30 – IT Dumbcharades + Crime Scene -->
+    <div class="ti" data-start="14:30" data-end="16:00" id="slot-6">
+      <div class="ti-time">
+        <div class="ti-time-main">2:30</div>
+        <span class="ti-time-end">— 4:00</span>
+      </div>
+      <div class="ti-node"></div>
+      <div class="ti-card">
+        <div class="ti-dur">1.5 HRS</div>
+        <div class="ti-card-type">
+          <span class="ti-type-dot" style="background:var(--red)"></span>
+          SIMULTANEOUS OPERATIONS
+        </div>
+        <div class="ti-card-title">ROUND 2 — AFTERNOON OPS</div>
+        <div class="ti-card-desc">
+          Two high-energy events run in parallel. Report to your pre-assigned venues. Latecomers will not be admitted after the brief begins.
+        </div>
+        <div class="event-pills">
+          <div class="ep"><span class="ep-dot" style="background:var(--gold)"></span>IT Dumbcharades</div>
+          <div class="ep"><span class="ep-dot" style="background:var(--red)"></span>Crime Scene</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4:00 – Culturals -->
+    <div class="ti" data-start="16:00" data-end="18:00" id="slot-7">
+      <div class="ti-time">
+        <div class="ti-time-main">4:00</div>
+        <span class="ti-time-end">— 6:00</span>
+      </div>
+      <div class="ti-node"></div>
+      <div class="ti-card">
+        <div class="ti-dur">2 HRS</div>
+        <div class="ti-card-type">
+          <span class="ti-type-dot" style="background:var(--paper)"></span>
+          CULTURAL
+        </div>
+        <div class="ti-card-title">CULTURALS</div>
+        <div class="ti-card-desc">
+          The grand cultural programme. Dance, music, and stage performances by participants and invited artists. Open to all attendees. Main auditorium / open stage.
+        </div>
+        <div class="event-pills">
+          <div class="ep"><span class="ep-dot" style="background:var(--paper)"></span>Cultural Event</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6:00 – Valedictory -->
+    <div class="ti ti-anchor" data-start="18:00" data-end="19:00" id="slot-8">
+      <div class="ti-time">
+        <div class="ti-time-main">6:00</div>
+        <span class="ti-time-end">— END</span>
+      </div>
+      <div class="ti-node"></div>
+      <div class="ti-card">
+        <div class="ti-dur">—</div>
+        <div class="ti-card-type">
+          <span class="ti-type-dot" style="background:var(--gold)"></span>
+          CLOSING CEREMONY
+        </div>
+        <div class="ti-card-title">VALEDICTORY</div>
+        <div class="ti-card-desc">
+          Prize distribution, winner announcements, vote of thanks, and the official closing of Incognito 2026. All participants and faculty requested to be present. Certificates awarded.
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.timeline -->
+
+  <!-- SUMMARY -->
+  <div class="summary">
+    <div class="sum-cell">
+      <div class="sum-val">7</div>
+      <div class="sum-lbl">EVENTS</div>
+    </div>
+    <div class="sum-cell">
+      <div class="sum-val">10h</div>
+      <div class="sum-lbl">TOTAL DURATION</div>
+    </div>
+    <div class="sum-cell">
+      <div class="sum-val">9</div>
+      <div class="sum-lbl">TIME SLOTS</div>
+    </div>
+    <div class="sum-cell">
+      <div class="sum-val">24</div>
+      <div class="sum-lbl">MARCH 2026</div>
+    </div>
+  </div>
+
+  <!-- VENUE NOTE -->
+  <div class="venue-note">
+    <div class="venue-icon">⚠</div>
+    <div>
+      <strong style="color:var(--cream);display:block;margin-bottom:4px;font-size:.7rem;letter-spacing:.08em;">IMPORTANT NOTICES</strong>
+      All participants must carry their <strong style="color:var(--red)">college ID and registration token</strong> at all times. Cash payments for events must be settled at the registration desk (8–11 AM). 
+      Certificates will be distributed only at the Valedictory. Photography and videography permitted in designated zones only.
+      The schedule is subject to minor time adjustments — follow volunteer announcements.
+    </div>
+  </div>
+
+</div><!-- /.main -->
+
+<script>
+'use strict';
+
+// ── LIVE CLOCK ──
+function updateClock() {
+  const now = new Date();
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const days   = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
+
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const s = String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('live-clock').textContent = `${h}:${m}:${s}`;
+  document.getElementById('live-date').textContent  =
+    `${days[now.getDay()]} · ${months[now.getMonth()]} ${String(now.getDate()).padStart(2,'0')} ${now.getFullYear()}`;
+
+  // Determine current event on fest day (March 24 2026)
+  updateLiveStatus(now);
+}
+
+// ── SCHEDULE DATA for live status ──
+const SLOTS = [
+  { id:'slot-0', label:'Registration',           startH:8,   startM:0,  endH:11,  endM:0  },
+  { id:'slot-1', label:'Inauguration',           startH:9,   startM:0,  endH:10,  endM:30 },
+  { id:'slot-2', label:'Round 1 — Operations',   startH:10,  startM:45, endH:11,  endM:30 },
+  { id:'slot-3', label:'Data Treasure Hunt',     startH:11,  startM:30, endH:12,  endM:30 },
+  { id:'slot-4', label:'Flashmob',               startH:12,  startM:30, endH:13,  endM:30 },
+  { id:'slot-5', label:'Lunch Break',            startH:13,  startM:30, endH:14,  endM:30 },
+  { id:'slot-6', label:'Round 2 — Afternoon Ops',startH:14,  startM:30, endH:16,  endM:0  },
+  { id:'slot-7', label:'Culturals',              startH:16,  startM:0,  endH:18,  endM:0  },
+  { id:'slot-8', label:'Valedictory',            startH:18,  startM:0,  endH:19,  endM:0  },
+];
+
+const FEST_DATE = { year:2026, month:3, day:24 }; // March 24 2026
+
+function toMins(h,m){ return h*60+m; }
+
+function updateLiveStatus(now) {
+  const isFestDay = now.getFullYear()===FEST_DATE.year &&
+                    now.getMonth()+1===FEST_DATE.month &&
+                    now.getDate()===FEST_DATE.day;
+
+  const statusEl = document.getElementById('live-status');
+
+  // Clear all active states
+  document.querySelectorAll('.ti').forEach(el => {
+    el.classList.remove('ti-active');
+  });
+
+  if (!isFestDay) {
+    const d = Math.ceil((new Date('2026-03-24') - now) / 86400000);
+    statusEl.innerHTML = d > 0
+      ? `Fest in <strong style="color:var(--gold)">${d} days</strong> — Schedule locked in`
+      : `<strong style="color:var(--red)">Incognito 2026 has concluded.</strong>`;
+    return;
+  }
+
+  const nowMins = toMins(now.getHours(), now.getMinutes());
+  let current = null;
+
+  SLOTS.forEach(slot => {
+    const start = toMins(slot.startH, slot.startM);
+    const end   = toMins(slot.endH,   slot.endM);
+    if (nowMins >= start && nowMins < end) {
+      current = slot;
+      const el = document.getElementById(slot.id);
+      if (el) {
+        el.classList.add('ti-active');
+        // inject NOW pill if not already
+        const card = el.querySelector('.ti-card');
+        if (card && !card.querySelector('.now-pill')) {
+          const pill = document.createElement('div');
+          pill.className = 'now-pill';
+          pill.textContent = 'NOW';
+          card.insertBefore(pill, card.firstChild);
+        }
+      }
+    }
+  });
+
+  if (current) {
+    const endMins = toMins(current.endH, current.endM);
+    const remaining = endMins - nowMins;
+    statusEl.innerHTML = `<strong style="color:var(--green)">${current.label}</strong> — ${remaining} min remaining`;
+  } else if (nowMins < toMins(8,0)) {
+    statusEl.innerHTML = `Doors open at <strong style="color:var(--gold)">8:00 AM</strong>`;
+  } else if (nowMins >= toMins(19,0)) {
+    statusEl.innerHTML = `<strong style="color:var(--gold)">Incognito 2026 has wrapped. See you next year.</strong>`;
+  } else {
+    statusEl.innerHTML = `Between events — next slot begins soon`;
+  }
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+</body>
+</html>
