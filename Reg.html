@@ -365,38 +365,47 @@
 
  // Replace the entire try { ... } block in your Reg.html
 try {
-  const response = await fetch('/.netlify/functions/send-email', {
-    method: 'POST',
-    body: JSON.stringify({
-      name: data.name,
-      email: data.email,
-      htmlContent: `
-        <div style="background:#0a0a08; color:#ff0000; font-family:monospace; padding:30px; border:3px solid #ff0000;">
-          <h1 style="text-align:center; letter-spacing:5px;">INCOGNITO-2026</h1>
-          <p>IDENTIFIED AGENT: <strong>${data.name}</strong></p>
-          <div style="border:1px dashed #ff0000; padding:15px; margin:20px 0;">
-            <p>OPERATIONAL SECTOR: ${data.event}</p>
-            <p>ORIGIN HUB: ${data.college}</p>
-            <p>SECURE COMMS: ${data.phone}</p>
-          </div>
-          <p style="color:#bfa100; font-size:10px;">Identified Agent!</p>
-        </div>`
-    })
-  });
-
-  if (response.ok) {
-    document.getElementById('successModal').style.display = 'flex';
-    this.reset();
-  } else {
-    alert("TERMINAL ERROR: Dispatch rejected by HQ.");
-  }
-} catch (err) {
-  alert("CRITICAL ERROR: Connection to HQ lost.");
-} finally {
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-      }
+    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'api-key': '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', // Hardcoded v3 Key
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        sender: { name: "INCOGNITO HQ", email: 'hareshhare685@gmail.com' }, // Verified Sender
+        to: [{ email: data.email, name: data.name }],
+        subject: `---------------------------`,
+        htmlContent: `
+          <div style="background:#0a0a08; color:#ff0000; font-family:monospace; padding:30px; border:3px solid #ff0000;">
+            <h1 style="text-align:center; letter-spacing:5px;">INCOGNITO-26</h1>
+            <p style="text-align:center; font-size:10px; color:#666;"></p>
+            <p><strong>AGENT NAME:</strong> ${data.name.toUpperCase()}</p>
+            <div style="border:1px dashed #ff0000; padding:15px; margin:20px 0;">
+              
+              <p><strong>ASSIGNED:</strong> ${data.event}</p>
+              <p><strong>ORIGIN HUB:</strong> ${data.college}</p>
+              <p><strong>CONTACT:</strong> ${data.phone}</p>
+            </div>
+            <p style="color:#bfa100;">Identified Agent!</p>
+          </div>`
+      })
     });
+
+    if (response.ok) {
+      document.getElementById('successModal').style.display = 'flex'; // Trigger Success Modal
+      this.reset();
+    } else {
+      const errorData = await response.json();
+      alert("TERMINAL ERROR: " + errorData.message); // Show Brevo rejection reason
+    }
+  } catch (err) {
+    alert("CRITICAL ERROR: Connection to HQ lost."); // Network/Fetch error
+  } finally {
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+});
 
     function closeModal() {
       document.getElementById('successModal').style.display = 'none';
