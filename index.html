@@ -65,7 +65,7 @@
       </ul>
       <div class="nav-cta">
         <!---<a href="/login"    class="btn-ghost">LOGIN</a>-->
-        <a href="/register" class="btn-primary">
+        <a href="Reg.html" class="btn-primary">
           <span class="btn-primary__text">REGISTER</span>
           <span class="btn-primary__glow"></span>
         </a>
@@ -81,7 +81,7 @@
         <li><a href="#schedule" class="nav-drawer__link">// SCHEDULE</a></li>
         <li><a href="#deadbody"    class="nav-drawer__link">// VENUE</a></li>
        <!---<li><a href="#faq"      class="nav-drawer__link">// FAQ</a></li>-->
-        <li><a href="/register" class="nav-drawer__link text-red">// REGISTER NOW</a></li>
+        <li><a href="Reg.html" class="nav-drawer__link text-red">// REGISTER NOW</a></li>
       </ul>
     </div>
   </nav>
@@ -164,7 +164,7 @@
       </div>
 
       <div class="hero__actions">
-        <a href="/register" class="hero__btn-primary">
+        <a href="Reg.html" class="hero__btn-primary">
           <span>REGISTER NOW</span>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -432,7 +432,7 @@
             background: 
               /*  radial-gradient(circle at 10% 10%, rgba(139, 0, 0, 0.5) 0%, transparent 15%),
                 radial-gradient(circle at 90% 85%, rgba(139, 0, 0, 0.4) 0%, transparent 20%),*/
-                radial-gradient(circle at 50% 50%, rgb(30, 25, 25) 0%, #000 100%);
+                radial-gradient(circle at 50% 50%, rgb(14, 13, 10) 0%,rgb(16, 15, 15) 100%);
         }
 
         .cr-card-body {
@@ -611,7 +611,7 @@
             --neon-red: #ff1a1a;
             --deep-carbon: #1f1c1c;
             --panel-border: #17171a;
-            background: #100f0f;
+            background: #101010;
             padding: 60px 20px;
             display: flex;
             justify-content: center;
@@ -790,9 +790,30 @@
         <div class="hz-grid">
             <div>
                 <span class="hz-label">Visual_Intel</span>
-                <div class="hz-intel-box">
-                    <div style="position:absolute; inset: 0; border: 1px solid rgba(255,0,0,0.1); margin: 10px;"></div>
-                </div>
+                <div class="hz-intel-box" style="
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    position: relative; 
+    width: 150px; 
+    height: 150px; 
+    background: rgba(0, 0, 0, 0.2); 
+    overflow: hidden;">
+    
+    <div style="
+        position: absolute; 
+        inset: 0; 
+        border: 1px solid rgba(255, 0, 0, 0.15); 
+        margin: 12px; 
+        pointer-events: none;">
+    </div>
+
+    <img src="assets/hand-removebg-preview.png" alt="hand" style="
+        max-width: 60%; 
+        max-height: 60%; 
+        object-fit: contain; 
+        display: block;">
+</div>
             </div>
 
             <div>
