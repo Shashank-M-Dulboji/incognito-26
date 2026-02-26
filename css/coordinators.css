@@ -8,7 +8,7 @@
     
     position: relative;
     padding: 80px 20px;
-    background: #050505;
+    background: #865959;
     overflow: hidden;
     color: #dcdcdc;
     font-family: 'Courier Prime', monospace;
@@ -35,7 +35,7 @@
     background: linear-gradient(145deg, #111, #080808);
     padding: 40px;
     border: 1px solid #300;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 1), inset 0 0 20px rgba(139, 0, 0, 0.2);
+    box-shadow: 0 0 50px rgb(44, 44, 44), inset 0 0 20px rgba(139, 0, 0, 0.2);
     z-index: 3;
 }
 
@@ -63,7 +63,7 @@
 .crime-person {
     position: relative;
     padding: 25px 20px;
-    background: rgba(20, 20, 20, 0.8);
+    background: rgba(36, 36, 36, 0.8);
     border: 1px solid #222;
     transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     /* Make it look like a tagged evidence bag */

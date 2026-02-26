@@ -59,8 +59,8 @@
         <li><a href="game.html"    class="nav-link"><img src="assets/gameicon.png" alt="gameicon" id="game-icon"></a></li>
         <li><a href="#about"    class="nav-link">ABOUT</a></li>
         <li><a href="#events"   class="nav-link">EVENTS</a></li>
-        <li><a href="Events/schedule1.jpeg" class="nav-link">SCHEDULE</a></li>
-        <li><a href="#mainCard"    class="nav-link">VENUE</a></li>
+        <li><a href="schedule.html" class="nav-link">SCHEDULE</a></li>
+        <li><a href="#deadbody"    class="nav-link">VENUE</a></li>
         <!--- <li><a href="#faq"      class="nav-link">FAQ</a></li>-->
       </ul>
       <div class="nav-cta">
@@ -79,7 +79,7 @@
         <li><a href="#about"    class="nav-drawer__link">// ABOUT</a></li>
         <li><a href="#events"   class="nav-drawer__link">// EVENTS</a></li>
         <li><a href="#schedule" class="nav-drawer__link">// SCHEDULE</a></li>
-        <li><a href="#venue"    class="nav-drawer__link">// VENUE</a></li>
+        <li><a href="#deadbody"    class="nav-drawer__link">// VENUE</a></li>
        <!---<li><a href="#faq"      class="nav-drawer__link">// FAQ</a></li>-->
         <li><a href="/register" class="nav-drawer__link text-red">// REGISTER NOW</a></li>
       </ul>
@@ -297,7 +297,7 @@
           <div class="event-card__inner">
             <div class="event-card__id font-mono text-red">FILE #001</div>
             <h3 class="event-card__title font-display">Crime scene</h3>
-            <p class="event-card__desc font-mono">Crack encrypted algorithms under time pressure. A competitive coding challenge for the finest minds.</p>
+            <p class="event-card__desc font-mono">A crime scene is a location where a crime has occurred and where investigators collect evidence to uncover the truth.</p>
             <div class="event-card__meta">
               <span class="event-meta-chip">4 HRS</span>
               <span class="event-meta-chip">Squad</span>
@@ -346,7 +346,7 @@
           <div class="event-card__inner">
             <div class="event-card__id font-mono text-red">FILE #004</div>
             <h3 class="event-card__title font-display">Freefire</h3>
-            <p class="event-card__desc font-mono">Express yourself through art, dance, or music. Every performance is a clue. Every clue is a masterpiece.</p>
+            <p class="event-card__desc font-mono">In Free Fire, a crime scene is a high-risk battleground filled with chaos, danger, and intense combat where survival depends on strategy and skill.</p>
             <div class="event-card__meta">
               <span class="event-meta-chip">90 MIN</span>
               <span class="event-meta-chip">TEAM ≤6</span>
@@ -394,7 +394,7 @@
           <div class="event-card__inner">
             <div class="event-card__id font-mono text-red">FILE #006</div>
             <h3 class="event-card__title font-display">video/photography</h3>
-            <p class="event-card__desc font-mono">Analyze a mystery dataset, uncover hidden patterns, and present your findings before time runs out.</p>
+            <p class="event-card__desc font-mono">Videography and photography capture meaningful moments through creative visuals and storytelling.</p>
             <div class="event-card__meta">
               <span class="event-meta-chip">4 HRS</span>
               <span class="event-meta-chip">TEAM 2–3</span>
@@ -409,7 +409,7 @@
 
       <div class="events-footer">
         <div class="divider-crime"><span class="font-mono text-red" style="font-size:0.65rem;letter-spacing:0.15em;white-space:nowrap;">MORE OPERATIONS CLASSIFIED</span></div>
-        <a href="/events" class="hero__btn-secondary">VIEW ALL FILES</a>
+       <!--- <a href="/events" class="hero__btn-secondary">VIEW ALL FILES</a>-->
       </div>
 
       
@@ -430,9 +430,9 @@
             padding: 40px;
             /* Blood splatter background for the section */
             background: 
-                radial-gradient(circle at 10% 10%, rgba(139, 0, 0, 0.5) 0%, transparent 15%),
-                radial-gradient(circle at 90% 85%, rgba(139, 0, 0, 0.4) 0%, transparent 20%),
-                radial-gradient(circle at 50% 50%, rgba(20, 0, 0, 1) 0%, #000 100%);
+              /*  radial-gradient(circle at 10% 10%, rgba(139, 0, 0, 0.5) 0%, transparent 15%),
+                radial-gradient(circle at 90% 85%, rgba(139, 0, 0, 0.4) 0%, transparent 20%),*/
+                radial-gradient(circle at 50% 50%, rgb(30, 25, 25) 0%, #000 100%);
         }
 
         .cr-card-body {
@@ -443,7 +443,7 @@
             padding: 30px;
             position: relative;
             box-shadow: 0 0 40px rgba(0, 0, 0, 1), 0 0 20px rgba(139, 0, 0, 0.3);
-            font-family: 'Cutive Mono', monospace;
+            font-family: 'Bebas Neue', sans-serif;
             color: #eee;
             overflow: hidden;
         }
@@ -507,7 +507,7 @@
         }
 
         .cr-title {
-            font-family: 'Special Elite', cursive;
+            font-family:'Bebas Neue', sans-serif;
             color: #fff;
             font-size: 1.5rem;
             margin: 5px 0;
@@ -609,9 +609,9 @@
 
         .horizon-wrapper {
             --neon-red: #ff1a1a;
-            --deep-carbon: #0a0a0b;
-            --panel-border: #2a2a2e;
-            background: #000;
+            --deep-carbon: #1f1c1c;
+            --panel-border: #17171a;
+            background: #100f0f;
             padding: 60px 20px;
             display: flex;
             justify-content: center;
@@ -878,8 +878,8 @@
         <ul class="footer__links">
           <li><a href="#about"    class="footer__link">About the Fest</a></li>
           <li><a href="#events"   class="footer__link">Events</a></li>
-          <li><a href="#schedule" class="footer__link">Schedule</a></li>
-          <li><a href="#venue"    class="footer__link">Venue</a></li>
+          <li><a href="schedule.html" class="footer__link">Schedule</a></li>
+          <li><a href="#deadbody"    class="footer__link">Venue</a></li>
           <!---<li><a href="#faq"      class="footer__link">FAQ</a></li>-->
         </ul>
       </div>
@@ -888,14 +888,14 @@
         <ul class="footer__links">
           <li class="footer__org"><span class="text-red">▸</span><span>Seshadripuram College<br/><span style="opacity:0.5;font-size:0.65rem;">Host Institution</span></span></li>
           <li class="footer__org"><span class="text-red">▸</span><span>Pragnya Science Forum<br/><span style="opacity:0.5;font-size:0.65rem;">In Association With</span></span></li>
-          <li class="footer__org"><span class="text-red">▸</span><span>Chathurya Dev Club<br/><span style="opacity:0.5;font-size:0.65rem;">Technology Partner</span></span></li>
+          <li class="footer__org"><span class="text-red">▸</span><span>Chathurya Student Dev Club<br/><span style="opacity:0.5;font-size:0.65rem;">Technology Partner</span></span></li>
         </ul>
       </div>
       <div class="footer__col">
         <h3 class="footer__col-title font-mono">CONTACT OPS</h3>
         <ul class="footer__links">
           <li class="font-mono" style="font-size:0.72rem;opacity:0.7;"><span class="text-red">// </span>incognito@seshadripuram.edu.in</li>
-          <li><a href="/register" class="footer__cta-btn">REGISTER NOW</a></li>
+          <li><a href="Reg.html" class="footer__cta-btn">REGISTER NOW</a></li>
         </ul>
       </div>
     </div>
