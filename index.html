@@ -1345,7 +1345,7 @@ document.querySelectorAll('[data-edit]').forEach(el => {
       <div class="footer__col">
         <h3 class="footer__col-title font-mono">CONTACT OPS</h3>
         <ul class="footer__links">
-          <li class="font-mono" style="font-size:0.72rem;opacity:0.7;"><span class="text-red">// </span>incognito@seshadripuram.edu.in</li>
+          <li class="font-mono" style="font-size:0.72rem;opacity:0.7;"><span class="text-red">//</span>sdcincognito@gmail.com</li>
           <li><a href="Reg.html" class="footer__cta-btn">REGISTER NOW</a></li>
         </ul>
       </div>
@@ -1353,7 +1353,7 @@ document.querySelectorAll('[data-edit]').forEach(el => {
     <div class="footer__bottom">
       <div class="container footer__bottom-inner">
         <span class="font-mono" style="font-size:0.6rem;opacity:0.4;letter-spacing:0.1em;">© 2026 INCOGNITO — SESHADRIPURAM COLLEGE. ALL RIGHTS RESERVED.</span>
-        <span class="font-mono" style="font-size:0.6rem;opacity:0.4;letter-spacing:0.1em;">BUILT BY Chethan.P, Nandan.A, Haresh.R & Shashan.M.Dulboji</span>
+        <span class="font-mono" style="font-size:0.6rem;opacity:0.4;letter-spacing:0.1em;">BUILT BY Chethan.P, Nandan.A, Haresh.R & Shashank.M.Dulboji</span>
       </div>
     </div>
   </footer>
@@ -1408,13 +1408,147 @@ document.querySelectorAll('[data-edit]').forEach(el => {
   </div>-->
 
   <!-- Scripts -->
-  <script src="js/main.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-  const supabase = window.supabase.createClient(
-    "https://supabase.com/dashboard/project/lkbsvjwpdrojwfifhiic/settings/api-keys",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxrYnN2andwZHJvandmaWZoaWljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIwMjU5MjYsImV4cCI6MjA4NzYwMTkyNn0.9-2pz6bW96CHUABzdOKsXma9OtYrUq9tPzS9LeKZUks"
-  );
+<!-- Scripts -->
+<script>
+/* =====================================================
+   INCOGNITO 2026 — Main JavaScript
+   ===================================================== */
+'use strict';
+
+let audioCtx = null;
+let audioEnabled = false;
+function getAudioContext() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+document.addEventListener('click', () => { audioEnabled = true; }, { once: true });
+function playTick() {
+  if (!audioEnabled) return;
+  try {
+    const ctx = getAudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = 880; osc.type = 'square';
+    gain.gain.setValueAtTime(0.025, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.04);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.04);
+  } catch (_) {}
+}
+
+/* 1. NAVBAR */
+const navbar = document.getElementById('navbar');
+const hamburger = document.getElementById('hamburger');
+const drawer = document.getElementById('nav-drawer');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 30);
+}, { passive: true });
+hamburger?.addEventListener('click', () => {
+  const isOpen = drawer.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', isOpen);
+  drawer.setAttribute('aria-hidden', !isOpen);
+});
+drawer?.querySelectorAll('.nav-drawer__link').forEach(link => {
+  link.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger?.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+  });
+});
+
+/* 2. COUNTDOWN */
+const TARGET_DATE = new Date('2026-03-25T09:00:00+05:30').getTime();
+function padZero(n) { return String(n).padStart(2, '0'); }
+function updateCountdown() {
+  const diff = TARGET_DATE - Date.now();
+  if (diff <= 0) {
+    ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => {
+      document.getElementById(id).textContent = '00';
+    });
+    return;
+  }
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000) / 60000);
+  const secs  = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent  = padZero(days);
+  document.getElementById('cd-hours').textContent = padZero(hours);
+  document.getElementById('cd-mins').textContent  = padZero(mins);
+  const secEl = document.getElementById('cd-secs');
+  const newSec = padZero(secs);
+  if (secEl && secEl.textContent !== newSec) {
+    secEl.textContent = newSec;
+    secEl.classList.add('tick');
+    setTimeout(() => secEl.classList.remove('tick'), 120);
+    playTick();
+  }
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* 3. TYPEWRITER */
+const taglines = [
+  'An intercollegiate fest with a crime-scene twist.',
+  'Decode. Build. Compete. Dominate.',
+  'March 25, 2026 — Seshadripuram College, Bengaluru.',
+  'Where every event is a crime scene waiting to be solved.',
+  'Technical. Cultural. Legendary.',
+];
+let taglineIdx = 0, charIdx = 0, isDeleting = false;
+const taglineEl = document.getElementById('hero-tagline');
+function typeTagline() {
+  if (!taglineEl) return;
+  const current = taglines[taglineIdx];
+  if (!isDeleting) {
+    taglineEl.textContent = current.slice(0, charIdx + 1);
+    charIdx++;
+    if (charIdx === current.length) {
+      isDeleting = true;
+      setTimeout(typeTagline, 2400);
+      return;
+    }
+  } else {
+    taglineEl.textContent = current.slice(0, charIdx - 1);
+    charIdx--;
+    if (charIdx === 0) {
+      isDeleting = false;
+      taglineIdx = (taglineIdx + 1) % taglines.length;
+    }
+  }
+  setTimeout(typeTagline, isDeleting ? 35 : 55);
+}
+setTimeout(typeTagline, 1200);
+
+/* 4. EVENTS FILTER */
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.filter-pill').forEach(p => {
+      p.classList.remove('active');
+      p.setAttribute('aria-selected', 'false');
+    });
+    pill.classList.add('active');
+    pill.setAttribute('aria-selected', 'true');
+    const filter = pill.dataset.filter;
+    document.querySelectorAll('.event-card').forEach(card => {
+      card.classList.toggle('hidden', filter !== 'all' && card.dataset.category !== filter);
+    });
+  });
+});
+
+/* 5. INTERSECTION OBSERVER */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.event-card, .about__dossier, .about__text, .about__stat').forEach(el => {
+  observer.observe(el);
+});
 </script>
 <script src="database.js"></script>
 </body>

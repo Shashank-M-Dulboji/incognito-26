@@ -4,6 +4,35 @@
    ===================================================== */
 
 'use strict';
+let audioCtx = null;
+let audioEnabled = false;
+
+function getAudioContext() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  return audioCtx;
+}
+
+// Unlock audio on first interaction
+document.addEventListener('click', () => { audioEnabled = true; }, { once: true });
+
+function playTick() {
+  if (!audioEnabled) return;
+  try {
+    const ctx = getAudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.value = 880;
+    osc.type = 'square';
+    gain.gain.setValueAtTime(0.025, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.04);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.04);
+  } catch (_) {}
+}
 
 /* ─────────────────────────────────────────────────────
    1. NAVBAR — scroll class + hamburger toggle
@@ -262,35 +291,7 @@ document.querySelectorAll('.quickie-btn').forEach(btn => {
 /* ─────────────────────────────────────────────────────
    7. RETRO AUDIO — tick sound + login sound
    ───────────────────────────────────────────────────── */
-let audioCtx = null;
-let audioEnabled = false;
 
-function getAudioContext() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-  return audioCtx;
-}
-
-// Unlock audio on first interaction
-document.addEventListener('click', () => { audioEnabled = true; }, { once: true });
-
-function playTick() {
-  if (!audioEnabled) return;
-  try {
-    const ctx = getAudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.frequency.value = 880;
-    osc.type = 'square';
-    gain.gain.setValueAtTime(0.025, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.04);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.04);
-  } catch (_) {}
-}
 
 function playRetroLogin() {
   if (!audioEnabled) return;
