@@ -273,3 +273,11 @@
 @media (max-width: 700px) {
   .events-grid { grid-template-columns: 1fr; }
 }
+
+#fingerprint-2{
+  position: absolute;
+  height: 18rem;
+  transform: rotate(-25deg);
+  right: 2rem;
+  bottom: 12rem;
+}

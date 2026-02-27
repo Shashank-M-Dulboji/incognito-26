@@ -106,7 +106,7 @@
     <div class="hero__glitch-overlay" aria-hidden="true">
       <span class="font-display">INCOGNITO</span>
     </div>
-    <div class="image-box"><img src="assets/Gemini_Generated_Image_dloxm2dloxm2dlox-removebg-preview.png" alt="restricted board sign" id="restricted"></div>
+    <div class="image-box"><img src="assets/org-warnboard.png" alt="restricted board sign" id="restricted"></div>
     <div><img src="assets/blood.png" alt="blood stains" id="blood"></div>
     <div class="hero__content container crt-intro">
       <div class="hero__badge">
@@ -194,6 +194,25 @@
        ABOUT
        ══════════════════════════════════════════ -->
   <section class="about" id="about" aria-labelledby="about-heading">
+    <!-- Magnifying glass decoration -->
+    <div class="about-magnifier-wrap" aria-hidden="true">
+      <svg class="about-magnifier" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <circle cx="58" cy="58" r="44" fill="rgba(212,175,55,0.025)" stroke="#d4af37" stroke-width="2" opacity="0.55"/>
+        <circle cx="58" cy="58" r="36" fill="none" stroke="#9a7e1e" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.4"/>
+        <circle cx="58" cy="58" r="26" fill="rgba(192,57,43,0.03)" stroke="#c0392b" stroke-width="0.8" opacity="0.35"/>
+        <!-- crosshair -->
+        <line x1="20" y1="58" x2="96" y2="58" stroke="#d4af37" stroke-width="0.7" opacity="0.3"/>
+        <line x1="58" y1="20" x2="58" y2="96" stroke="#d4af37" stroke-width="0.7" opacity="0.3"/>
+        <!-- glint -->
+        <circle cx="42" cy="42" r="6" fill="#d4af37" opacity="0.06"/>
+        <!-- handle -->
+        <line x1="93" y1="93" x2="130" y2="130" stroke="#d4af37" stroke-width="7" stroke-linecap="round" opacity="0.5"/>
+        <line x1="93" y1="93" x2="130" y2="130" stroke="#9a7e1e" stroke-width="3.5" stroke-linecap="round" opacity="0.35"/>
+        <line x1="93" y1="93" x2="130" y2="130" stroke="#ffd700" stroke-width="1.2" stroke-linecap="round" opacity="0.2"/>
+        <!-- label -->
+        <text x="38" y="62" font-family="'Courier Prime',monospace" font-size="7" fill="#d4af37" opacity="0.4" letter-spacing="1">INSPECT</text>
+      </svg>
+    </div>
     <div class="container about__grid">
       <div class="about__dossier">
         <div class="dossier-stamp font-typewriter" aria-label="Classified stamp">CLASSIFIED</div>
@@ -274,7 +293,63 @@
        EVENTS
        ══════════════════════════════════════════ -->
   <section class="events" id="events" aria-labelledby="events-heading">
-    <div><img src="assets/fingerprint-removebg-preview.png" alt="fingerprint" id="fingerprint"></div>
+    <div id="fingerprint" aria-hidden="true">
+<svg width="280" height="340" viewBox="0 0 280 340" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="fpg" cx="50%" cy="55%" r="48%">
+      <stop offset="0%" stop-color="#8b0000" stop-opacity="0.9"/>
+      <stop offset="70%" stop-color="#6b0000" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#3a0000" stop-opacity="0.2"/>
+    </radialGradient>
+  </defs>
+  <!-- Fingerprint concentric oval ridges -->
+  <g fill="none" stroke-linecap="round">
+    <ellipse cx="140" cy="168" rx="8" ry="10" stroke="#8b0000" stroke-width="2.2" opacity="0.9"/>
+    <ellipse cx="140" cy="168" rx="18" ry="22" stroke="#8b0000" stroke-width="2" opacity="0.85"/>
+    <ellipse cx="140" cy="168" rx="30" ry="36" stroke="#8b0000" stroke-width="1.8" opacity="0.8"/>
+    <ellipse cx="140" cy="168" rx="43" ry="52" stroke="#8b0000" stroke-width="1.7" opacity="0.75"/>
+    <ellipse cx="140" cy="168" rx="57" ry="70" stroke="#8b0000" stroke-width="1.6" opacity="0.7"/>
+    <ellipse cx="140" cy="168" rx="72" ry="88" stroke="#8b0000" stroke-width="1.5" opacity="0.65"/>
+    <ellipse cx="140" cy="168" rx="88" ry="106" stroke="#8b0000" stroke-width="1.4" opacity="0.58"/>
+    <ellipse cx="140" cy="168" rx="104" ry="124" stroke="#8b0000" stroke-width="1.3" opacity="0.5"/>
+    <ellipse cx="140" cy="168" rx="118" ry="140" stroke="#8b0000" stroke-width="1.2" opacity="0.42"/>
+    <ellipse cx="140" cy="168" rx="130" ry="154" stroke="#8b0000" stroke-width="1.1" opacity="0.32"/>
+  </g>
+  <!-- Slight breaks in ridges for realism -->
+  <rect x="0" y="0" width="280" height="340" fill="none"/>
+  <!-- Center glow -->
+  <ellipse cx="140" cy="165" rx="30" ry="38" fill="url(#fpg)" opacity="0.3"/>
+</svg></div>
+<!-- Forensic camera decoration -->
+    <div class="events-camera-wrap" aria-hidden="true">
+      <svg class="events-camera" viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <!-- camera body -->
+        <rect x="10" y="22" width="90" height="58" rx="4" fill="#111009" stroke="#c0392b" stroke-width="1.5" opacity="0.8"/>
+        <!-- viewfinder bump -->
+        <rect x="28" y="14" width="36" height="12" rx="2" fill="#111009" stroke="#c0392b" stroke-width="1.2" opacity="0.8"/>
+        <!-- flash -->
+        <rect x="72" y="16" width="18" height="8" rx="1" fill="#111009" stroke="#d4af37" stroke-width="1" opacity="0.6"/>
+        <rect x="74" y="17.5" width="14" height="5" rx="0.5" fill="#d4af37" opacity="0.15"/>
+        <!-- lens outer ring -->
+        <circle cx="55" cy="51" r="22" fill="#0a0908" stroke="#c0392b" stroke-width="1.5" opacity="0.85"/>
+        <!-- lens middle ring -->
+        <circle cx="55" cy="51" r="16" fill="#080807" stroke="#3d3b35" stroke-width="1" opacity="0.85"/>
+        <!-- lens inner -->
+        <circle cx="55" cy="51" r="10" fill="#050504" stroke="#1e1c18" stroke-width="0.8" opacity="0.9"/>
+        <circle cx="55" cy="51" r="5" fill="#0a0908" opacity="0.9"/>
+        <!-- lens glint -->
+        <circle cx="49" cy="45" r="2.5" fill="#d4af37" opacity="0.12"/>
+        <!-- shutter button -->
+        <circle cx="95" cy="30" r="5" fill="#1a1814" stroke="#c0392b" stroke-width="1" opacity="0.75"/>
+        <!-- evidence label on camera -->
+        <text x="18" y="72" font-family="'Courier Prime',monospace" font-size="6" fill="#c9b99a" opacity="0.5" letter-spacing="1">EVIDENCE CAM</text>
+        <text x="18" y="80" font-family="'Courier Prime',monospace" font-size="5" fill="#c0392b" opacity="0.5" letter-spacing="1">PHOTO #047</text>
+        <!-- corner brackets on camera body -->
+        <path d="M12 24 L12 30 M12 24 L18 24" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+        <path d="M98 24 L98 30 M98 24 L92 24" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+      </svg>
+      <div class="events-camera-label">FORENSIC CAM · ACTIVE</div>
+    </div>
     <div class="container">
       <div class="section-header">
         <div class="evidence-tape" style="font-size:0.65rem;letter-spacing:0.12em;">FILE NO. 003 &nbsp;·&nbsp; RESTRICTED ACCESS &nbsp;·&nbsp; CLASSIFIED</div>
@@ -404,14 +479,10 @@
           </div>
           <div class="event-card__number font-retro">06</div>
         </article>
-
+        <img src="assets/fingerprint-removebg-preview.png" alt="fingerprint" id="fingerprint-2">
       </div>
-
-      <div class="events-footer">
-        <div class="divider-crime"><span class="font-mono text-red" style="font-size:0.65rem;letter-spacing:0.15em;white-space:nowrap;">MORE OPERATIONS CLASSIFIED</span></div>
-        <a href="/events" class="hero__btn-secondary">VIEW ALL FILES</a>
-      </div>
-
+      
+    
       
 
   </section>
@@ -451,6 +522,83 @@
     0 30px 100px rgba(0,0,0,0.9);
   animation: cardflicker 10s infinite;
 }
+
+.events-camera-wrap {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  animation: float 6s ease-in-out infinite;
+}
+
+
+#fingerprint {
+  position: absolute;
+  height: 18rem;
+  transform: rotate(35deg);
+  top: 4rem;
+  pointer-events: none;
+}
+
+/* ───────────────────────────────────────────
+   EVENTS: FORENSIC CAMERA
+─────────────────────────────────────────── */
+.events-camera-wrap {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.events-camera {
+  width: 110px;
+  height: 82px;
+  filter: drop-shadow(0 0 10px rgba(192,57,43,0.25));
+}
+
+.events-camera-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.2em;
+  color: #c0392b;
+  opacity: 0.6;
+  animation: blink-slow 2.4s step-end infinite;
+}
+
+@keyframes blink-slow {
+  0%,49%  { opacity: 0.6; }
+  50%,100%{ opacity: 0.15; }
+}
+
+/* ───────────────────────────────────────────
+   ABOUT: MAGNIFYING GLASS
+─────────────────────────────────────────── */
+.about-magnifier-wrap {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 2;
+  pointer-events: none;
+  animation: float 7s ease-in-out infinite 1s;
+}
+
+.about-magnifier {
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 0 12px rgba(212,175,55,0.15));
+}
+
 
 @keyframes cardflicker {
   0%,94%,96%,98%,100% { opacity: 1; }
@@ -699,8 +847,10 @@
 
 </style>
 
+ 
 <div class="collegevenue" id="college">
-
+  
+   <img src="assets/dead body.png" alt="dead body outline" id="deadbody">
   <div class="card">
     <div class="corner tl"></div>
     <div class="corner tr"></div>
@@ -718,10 +868,7 @@
     <div class="profile-section">
       <div class="photo-frame" id="photoFrame" title="Click to upload photo">
         <div class="photo-placeholder" id="photoPlaceholder">
-          <svg width="42" height="58" viewBox="0 0 42 58" fill="none" opacity="0.2">
-            <circle cx="21" cy="14" r="12" fill="#888"/>
-            <path d="M0 58 C0 38 8 30 21 30 C34 30 42 38 42 58Z" fill="#888"/>
-          </svg>
+          <img src="assets/SDC logo.png" alt="college logo" width="55px">
           <span class="photo-label">CLICK TO UPLOAD</span>
         </div>
         <img class="photo-preview" id="photoPreview" alt="Subject">
@@ -1056,12 +1203,13 @@ document.querySelectorAll('[data-edit]').forEach(el => {
 
         @keyframes pulse { 50% { opacity: 0.3; } }
     </style>
+    
 
     <div class="horizon-card">
         <div class="hz-header">
             <div class="hz-title">
                 <div class="hz-status">● SYSTEM_ACCESS_GRANTED // REF. 2026</div>
-                <h1>Code Breaker</h1>
+                <h1>Code Comms.</h1>
             </div>
             <div style="text-align: right; color: #444; font-size: 0.7rem;">
                 LOCATION: SESHADRIPURAM<br>ENCRYPTION: AES-256
@@ -1073,6 +1221,7 @@ document.querySelectorAll('[data-edit]').forEach(el => {
                 <span class="hz-label">Visual_Intel</span>
                 <div class="hz-intel-box" style="
     display: flex; 
+    flex-direction: column;
     align-items: center; 
     justify-content: center; 
     position: relative; 
@@ -1100,12 +1249,12 @@ document.querySelectorAll('[data-edit]').forEach(el => {
             <div>
                 <span class="hz-label">Command_Nodes</span>
                 <div class="personnel-item">
-                    <span class="p-name">Prof. Veena R</span>
-                    <span class="p-role">Co-Ordinator<br>PG Dept of Computer Applications</span>
+                    <span class="p-name">Prof. Rajeswari V</span>
+                    <span class="p-role">Head of Department<br>Dept. of Computer Applications</span>
                 </div>
                 <div class="personnel-item">
-                    <span class="p-name">Prof. Rajeswari V</span>
-                    <span class="p-role">HoD<br>Dept of Computer Science</span>
+                    <span class="p-name">Prof. Sowmya BS</span>
+                    <span class="p-role">Convenor<br>Pragnya Science Forum</span>
                 </div>
             </div>
 
