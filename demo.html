@@ -1,157 +1,455 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crime Scene Widget</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@300&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classified Dossier Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        :root {
-            --yellow: #f6c301;
-            --red: #d32f2f;
-            --grid: rgba(45, 15, 15, 0.4);
-        }
+  body {
+    background: #050505;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Share Tech Mono', monospace;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,0,0,0.012) 40px, rgba(255,0,0,0.012) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,0,0,0.012) 40px, rgba(255,0,0,0.012) 41px);
+  }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #050000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            font-family: 'Oswald', sans-serif;
-        }
+  .card {
+    width: 440px;
+    background: #0d0d0d;
+    border: 1px solid #2a1010;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px #1a0808,
+      0 0 50px rgba(192,57,43,0.12),
+      0 30px 100px rgba(0,0,0,0.9);
+    animation: cardflicker 10s infinite;
+  }
 
-        /* CHANGED: Smaller, contained width */
-        .widget-container {
-            position: relative;
-            width: 90%;
-            max-width: 600px; /* Adjust this value to change the size */
-            height: 300px;    /* Fixed height for the widget */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #080808;
-            background-image: 
-                linear-gradient(var(--grid) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-            background-size: 30px 30px;
-            overflow: hidden;
-            border: 1px solid #1a0a0a;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
+  @keyframes cardflicker {
+    0%,94%,96%,98%,100% { opacity: 1; }
+    95%,97% { opacity: 0.96; }
+  }
 
-        .widget-container::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle, transparent 10%, rgba(20, 0, 0, 0.4) 70%, rgba(0, 0, 0, 0.8) 100%);
-            pointer-events: none;
-        }
+  /* Scanlines */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.13) 0px, rgba(0,0,0,0.13) 1px, transparent 1px, transparent 4px);
+    pointer-events: none;
+    z-index: 20;
+  }
 
-        /* SLIMMER TAPE */
-        .tape-belt {
-            width: 100%;
-            height: 60px; /* Reduced height */
-            background-color: var(--yellow);
-            position: relative;
-            z-index: 5;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
-            background-image: repeating-linear-gradient(
-                -45deg,
-                #000,
-                #000 30px,
-                transparent 30px,
-                transparent 60px
-            );
-        }
+  /* Vignette */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    z-index: 19;
+  }
 
-        .scroller {
-            display: flex;
-            white-space: nowrap;
-            animation: scroll-tape 15s linear infinite;
-        }
+  /* Corner brackets */
+  .corner { position: absolute; width: 18px; height: 18px; z-index: 5; }
+  .corner.tl { top: 10px; left: 10px; border-top: 2px solid #c0392b; border-left: 2px solid #c0392b; }
+  .corner.tr { top: 10px; right: 10px; border-top: 2px solid #c0392b; border-right: 2px solid #c0392b; }
+  .corner.bl { bottom: 10px; left: 10px; border-bottom: 2px solid #c0392b; border-left: 2px solid #c0392b; }
+  .corner.br { bottom: 10px; right: 10px; border-bottom: 2px solid #c0392b; border-right: 2px solid #c0392b; }
 
-        .tape-text {
-            color: #000;
-            font-size: 32px; /* Smaller font */
-            font-weight: 800;
-            padding: 0 30px;
-            letter-spacing: -1px;
-            background: var(--yellow);
-            text-transform: uppercase;
-        }
+  .card-inner { padding: 28px 26px 22px; position: relative; z-index: 2; }
 
-        @keyframes scroll-tape {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+  /* HEADER */
+  .header-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
 
-        .content-box {
-            margin-top: 20px;
-            text-align: center;
-            z-index: 10;
-        }
+  .classified-stamp {
+    border: 2.5px solid #c0392b;
+    color: #c0392b;
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    padding: 4px 12px;
+    transform: rotate(-5deg);
+    text-shadow: 0 0 12px rgba(192,57,43,0.6);
+    position: relative;
+    animation: stampglow 3s ease-in-out infinite;
+  }
 
-        .title-red {
-            color: var(--red);
-            font-size: 24px; /* Scaled down */
-            letter-spacing: 1.5px;
-            margin: 0;
-            text-transform: uppercase;
-        }
+  @keyframes stampglow {
+    0%,100% { box-shadow: 0 0 10px rgba(192,57,43,0.15); }
+    50%      { box-shadow: 0 0 22px rgba(192,57,43,0.35); }
+  }
 
-        .attribution {
-            display: block;
-            margin-top: 8px;
-            font-family: 'Inter', sans-serif;
-            color: #665555;
-            font-size: 11px;
-            text-decoration: none;
-        }
+  .classified-stamp::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid rgba(192,57,43,0.25);
+  }
 
-        .scanline {
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.03);
-            z-index: 6;
-            top: 0;
-            animation: scan 4s linear infinite;
-            pointer-events: none;
-        }
+  .status-ring {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1.5px solid #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
 
-        @keyframes scan {
-            0% { top: 0%; }
-            100% { top: 100%; }
-        }
-    </style>
+  .status-ring::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    border: 1px solid #1a1a1a;
+  }
+
+  .status-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #c0392b;
+    box-shadow: 0 0 10px #c0392b, 0 0 20px rgba(192,57,43,0.4);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { transform: scale(1);   box-shadow: 0 0 10px #c0392b, 0 0 20px rgba(192,57,43,0.4); }
+    50%      { transform: scale(0.8); box-shadow: 0 0 4px  #c0392b; }
+  }
+
+  /* PROFILE */
+  .profile-section { display: flex; gap: 18px; margin-bottom: 20px; }
+
+  .photo-frame {
+    width: 92px; height: 115px;
+    flex-shrink: 0;
+    border: 1px solid #2a1a1a;
+    background: #080808;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .photo-frame::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(192,57,43,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .photo-label { font-size: 7px; color: #3a2a2a; letter-spacing: 1.5px; text-align: center; }
+
+  .photo-preview {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: none;
+    position: absolute;
+    inset: 0;
+  }
+
+  .scan-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: rgba(192,57,43,0.5);
+    box-shadow: 0 0 8px rgba(192,57,43,0.4);
+    animation: scanning 2.5s linear infinite;
+    z-index: 2;
+  }
+
+  @keyframes scanning { 0% { top: 0; } 100% { top: 100%; } }
+
+  .profile-info { flex: 1; }
+
+  .op-id { font-size: 9px; color: #3a2a2a; letter-spacing: 2px; margin-bottom: 8px; }
+
+  .subject-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 21px; font-weight: 700;
+    color: #fff;
+    line-height: 1.1; letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .dept-tag {
+    font-size: 9px; color: #6a5a5a;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    line-height: 1.7;
+    padding-left: 10px;
+    border-left: 2px solid #2a1010;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, #c0392b 0%, rgba(192,57,43,0.3) 70%, transparent 100%);
+    margin: 16px 0;
+  }
+
+  /* FIELDS */
+  .field-row { display: flex; gap: 20px; margin-bottom: 12px; }
+  .field { flex: 1; }
+  .field-label { font-size: 8px; color: #3a2a2a; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 3px; }
+  .field-value { font-size: 10px; color: #aaa; letter-spacing: 1.5px; text-transform: uppercase; }
+  .field-value.amber  { color: #f39c12; }
+  .field-value.danger { color: #c0392b; }
+  .field-value.green  { color: #27ae60; }
+
+  /* THREAT BAR */
+  .threat-wrap { margin-bottom: 16px; }
+  .threat-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .threat-label { font-size: 8px; color: #3a2a2a; letter-spacing: 2.5px; text-transform: uppercase; }
+  .threat-level-text { font-size: 8px; color: #c0392b; letter-spacing: 2px; }
+  .threat-bar { display: flex; gap: 3px; }
+  .seg { flex: 1; height: 5px; border-radius: 1px; background: #1a1a1a; }
+  .seg.red    { background: #c0392b; box-shadow: 0 0 5px rgba(192,57,43,0.5); }
+  .seg.amber  { background: #f39c12; box-shadow: 0 0 5px rgba(243,156,18,0.5); }
+  .seg.dark   { background: #1e1010; }
+
+  /* COUNTDOWN */
+  .countdown-section { margin-top: 4px; }
+
+  .countdown-label {
+    font-size: 8px; color: #c0392b;
+    letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 4px;
+    animation: blink 1.4s step-end infinite;
+  }
+
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .countdown-timer {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 46px; color: #c0392b; letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(192,57,43,0.8), 0 0 30px rgba(192,57,43,0.4), 0 0 60px rgba(192,57,43,0.2);
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  /* FOOTER */
+  .footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 18px;
+    padding-top: 12px;
+    border-top: 1px solid #1a1010;
+  }
+
+  .clearance-badge {
+    font-size: 8px; color: #f39c12; letter-spacing: 2px;
+    border: 1px solid rgba(243,156,18,0.25);
+    padding: 3px 8px; text-transform: uppercase;
+    box-shadow: 0 0 8px rgba(243,156,18,0.08);
+  }
+
+  /* Editable hint */
+  [data-edit]:hover { outline: 1px dashed rgba(192,57,43,0.3); cursor: text; }
+  [data-edit].editing { outline: 1px solid #c0392b; }
+</style>
 </head>
 <body>
 
-    <div class="widget-container">
-        <div class="scanline"></div>
+<div class="card">
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
 
-        <div class="tape-belt">
-            <div class="scroller">
-                <span class="tape-text">CRIME SCENE OPERATIONS CLASSIFIED</span>
-                <span class="tape-text">CRIME SCENE OPERATIONS CLASSIFIED</span>
-            </div>
-        </div>
+  <div class="card-inner">
 
-        <div class="content-box">
-            <h1 class="title-red">MORE OPERATIONS CLASSIFIED</h1>
-            <a href="https://www.vecteezy.com/free-png/crime-tape" class="attribution">
-                Crime Tape PNGs by Vecteezy
-            </a>
-        </div>
+    <!-- HEADER -->
+    <div class="header-row">
+      <div class="classified-stamp">CLASSIFIED</div>
+      <div class="status-ring"><div class="status-dot"></div></div>
     </div>
 
+    <!-- PROFILE -->
+    <div class="profile-section">
+      <div class="photo-frame" id="photoFrame" title="Click to upload photo">
+        <div class="photo-placeholder" id="photoPlaceholder">
+          <svg width="42" height="58" viewBox="0 0 42 58" fill="none" opacity="0.2">
+            <circle cx="21" cy="14" r="12" fill="#888"/>
+            <path d="M0 58 C0 38 8 30 21 30 C34 30 42 38 42 58Z" fill="#888"/>
+          </svg>
+          <span class="photo-label">CLICK TO UPLOAD</span>
+        </div>
+        <img class="photo-preview" id="photoPreview" alt="Subject">
+        <div class="scan-line"></div>
+        <input type="file" id="photoInput" accept="image/*" style="display:none;">
+      </div>
+
+      <div class="profile-info">
+        <div class="op-id">OPERATION_ID: <span data-edit id="opId">241761</span></div>
+        <div class="subject-name" data-edit id="subjectName">SESHADRIPURAM<br>COLLEGE</div>
+        <div class="dept-tag" data-edit id="deptTag">
+          POSTGRADUATE DEPT. OF<br>COMPUTER APPLICATIONS<br>&amp; DEPT. OF COMPUTER SCIENCE
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- FIELDS -->
+    <div class="field-row">
+      <div class="field">
+        <div class="field-label">TARGET_SECTOR</div>
+        <div class="field-value amber" data-edit id="sector">DEPT. OF COMPUTER SCIENCE</div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <div class="field-label">LOCATION</div>
+        <div class="field-value" data-edit id="location">BANGALORE, INDIA</div>
+      </div>
+      <div class="field">
+        <div class="field-label">PRIORITY</div>
+        <div class="field-value danger" data-edit id="priority">ALPHA-1</div>
+      </div>
+    </div>
+
+    <!-- THREAT LEVEL -->
+    <div class="threat-wrap">
+      <div class="threat-header">
+        <span class="threat-label">THREAT_LEVEL</span>
+        <span class="threat-level-text" id="threatText">CRITICAL</span>
+      </div>
+      <div class="threat-bar" id="threatBar"></div>
+    </div>
+
+    <!-- COUNTDOWN -->
+    <div class="countdown-section">
+      <div class="countdown-label">&#9654; TERMINATION PROTOCOL ACTIVATED</div>
+      <div class="countdown-timer" id="timer" title="Click to set time">00:00:00:00</div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-row">
+      <div class="clearance-badge" data-edit id="clearance">CLEARANCE LVL-5</div>
+      <svg id="barcodesvg" width="120" height="30" viewBox="0 0 120 30"></svg>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── BARCODE ────────────────────────────────────────────────────
+(function(){
+  const svg = document.getElementById('barcodesvg');
+  let x = 0;
+  while (x < 120) {
+    const w = Math.random() < 0.5 ? 1 : 2;
+    const h = 14 + Math.random() * 14;
+    if (Math.random() > 0.35) {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      rect.setAttribute('x', x); rect.setAttribute('y', 30 - h);
+      rect.setAttribute('width', w); rect.setAttribute('height', h);
+      rect.setAttribute('fill', '#4a3a3a');
+      svg.appendChild(rect);
+    }
+    x += w + 1;
+  }
+})();
+
+// ── THREAT BAR ─────────────────────────────────────────────────
+function renderThreat(level) {
+  const bar = document.getElementById('threatBar');
+  const labels = {3:'LOW',6:'MODERATE',8:'HIGH',10:'CRITICAL'};
+  const key = [3,6,8,10].find(k => level <= k) || 10;
+  document.getElementById('threatText').textContent = labels[key];
+  bar.innerHTML = '';
+  for (let i = 1; i <= 10; i++) {
+    const s = document.createElement('div');
+    s.className = 'seg' + (i <= level ? (i <= 6 ? ' amber' : ' red') : ' dark');
+    bar.appendChild(s);
+  }
+}
+renderThreat(10);
+
+// ── COUNTDOWN ─────────────────────────────────────────────────
+let secs = 3600, iv;
+function fmt(s) {
+  const h = String(Math.floor(s/3600)).padStart(2,'0');
+  const m = String(Math.floor((s%3600)/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  return `00:${h}:${m}:${ss}`;
+}
+function startTimer() {
+  clearInterval(iv);
+  iv = setInterval(() => { if(secs>0){secs--;document.getElementById('timer').textContent=fmt(secs);} else clearInterval(iv); },1000);
+}
+document.getElementById('timer').textContent = fmt(secs);
+startTimer();
+
+document.getElementById('timer').addEventListener('click', () => {
+  const v = prompt('Set countdown in seconds:', secs);
+  if (v !== null && !isNaN(+v)) { secs = +v; document.getElementById('timer').textContent=fmt(secs); startTimer(); }
+});
+
+// ── PHOTO UPLOAD ──────────────────────────────────────────────
+document.getElementById('photoFrame').addEventListener('click', () => document.getElementById('photoInput').click());
+document.getElementById('photoInput').addEventListener('change', function() {
+  const f = this.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = e => {
+    document.getElementById('photoPreview').src = e.target.result;
+    document.getElementById('photoPreview').style.display = 'block';
+    document.getElementById('photoPlaceholder').style.display = 'none';
+  };
+  r.readAsDataURL(f);
+});
+
+// ── INLINE EDIT (double-click) ────────────────────────────────
+document.querySelectorAll('[data-edit]').forEach(el => {
+  el.title = 'Double-click to edit';
+  el.addEventListener('dblclick', () => {
+    const prev = el.innerHTML;
+    el.setAttribute('contenteditable','true');
+    el.classList.add('editing');
+    el.focus();
+    // place cursor at end
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+
+    function done() {
+      el.removeAttribute('contenteditable');
+      el.classList.remove('editing');
+      if(!el.textContent.trim()) el.innerHTML = prev;
+    }
+    el.addEventListener('blur', done, {once: true});
+    el.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); el.blur(); } });
+  });
+});
+</script>
 </body>
 </html>
