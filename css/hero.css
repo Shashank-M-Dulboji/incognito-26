@@ -219,14 +219,14 @@
 }
 
 .hero__meta-label {
-  font-size: 0.55rem;
+  font-size: 0.8rem;
   letter-spacing: 0.2em;
   color: var(--crime-red);
   opacity: 0.8;
 }
 
 .hero__meta-value {
-  font-size: 0.75rem;
+  font-size: 1rem;
   letter-spacing: 0.06em;
   color: var(--typewriter);
 }
@@ -374,7 +374,7 @@
 }
 
 .hero__org-item {
-  font-size: 0.65rem;
+  font-size: 0.9rem;
   letter-spacing: 0.12em;
   color: var(--aged-paper);
   opacity: 0.65;
@@ -437,12 +437,7 @@
   right: -1rem;
 }
 
-#fingerprint{
-  position: absolute;
-  height: 18rem;
-  transform: rotate(35deg);
-  top: 4rem;
-}
+
 
 #deadbody{
   position: absolute;
@@ -450,6 +445,7 @@
   width: 25rem;
   transform: rotate(20deg);
 }
+
 
 .body-tape{
   position: absolute;
